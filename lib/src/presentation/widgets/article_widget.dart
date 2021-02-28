@@ -1,3 +1,4 @@
+import 'package:fitnest/src/utils/global_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:progressive_image/progressive_image.dart';
 
@@ -14,33 +15,29 @@ class ArticleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: borderRadius5,
+      ),
+      color: accentColor,
       margin: EdgeInsets.all(8),
       child: InkWell(
+        borderRadius: borderRadius5,
         onTap: () => launchURL(context, article.link),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  article.title,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (article.img != null)
+              // Image.network(
+              //   article.img,
+              // ),
+              // SelectableText(),
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(5),
+                  topRight: Radius.circular(5),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              if (article.img != null)
-                // Image.network(
-                //   article.img,
-                // ),
-                // SelectableText(),
-                ProgressiveImage(
+                child: ProgressiveImage(
                   placeholder: NetworkImage(article.img.replaceFirst(
                     RegExp(r'/max/[0-9]{0,4}/'),
                     '/max/100/',
@@ -58,16 +55,25 @@ class ArticleWidget extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.3,
                   width: MediaQuery.of(context).size.width,
                 ),
-              SizedBox(
-                height: 20,
               ),
-              ListTile(
-                title: Text(article.author),
-                contentPadding: EdgeInsets.zero,
-                subtitle: Text(article.pubDate.substring(0, 16)),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 16),
+              child: ListTile(
+                title: Text(
+                  article.title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: brown,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                subtitle: Text("${article.author}, ${article.pubDate.substring(0, 16)}"),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

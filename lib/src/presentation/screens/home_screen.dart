@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       appBar: PreferredSize(
         child: Container(
           margin: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.07,
+            vertical: MediaQuery.of(context).size.height * 0.05,
             horizontal: 20,
           ),
           child: Row(
@@ -37,11 +37,12 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         preferredSize: Size.fromHeight(
-          MediaQuery.of(context).size.height * 0.15,
+          MediaQuery.of(context).size.height * 0.1,
         ),
       ),
       body: Scrollbar(
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           padding: EdgeInsets.all(20),
           child: Column(
             children: [
@@ -94,13 +95,12 @@ class HomeScreen extends StatelessWidget {
                       child: CircularProgressIndicator(),
                     );
                   } else if (state is ArticleLoaded) {
-                    return Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: state.articles.length,
-                        itemBuilder: (context, index) => ArticleWidget(
-                          article: state.articles[index],
-                        ),
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: state.articles.length,
+                      itemBuilder: (context, index) => ArticleWidget(
+                        article: state.articles[index],
                       ),
                     );
                   }
