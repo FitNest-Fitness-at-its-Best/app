@@ -1,7 +1,10 @@
 import 'package:fitnest/src/presentation/screens/signup/extras.dart';
 import 'package:fitnest/src/presentation/screens/signup/intro.dart';
+import 'package:fitnest/src/services/bloc/article/article_cubit.dart';
+import 'package:fitnest/src/services/bloc/sign_in/googlesignin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -40,18 +43,28 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.light,
-      theme: appThemeData,
-      title: 'Fitnest',
-      home: SplashScreen(),
-      routes: {
-        SignupScreen.routename: (_) => SignupScreen(),
-        IntroScreen.routename: (_) => IntroScreen(),
-        ExtraInfoScreen.routename: (_) => ExtraInfoScreen(),
-        HomeScreen.routename: (_) => HomeScreen(),
-        BMIScreen.routename: (_) => BMIScreen(),
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ArticleCubit>(
+          create: (context) => ArticleCubit(),
+        ),
+        BlocProvider<GooglesigninBloc>(
+          create: (context) => GooglesigninBloc(),
+        ),
+      ],
+      child: MaterialApp(
+        themeMode: ThemeMode.light,
+        theme: appThemeData,
+        title: 'Fitnest',
+        home: SplashScreen(),
+        routes: {
+          SignupScreen.routename: (_) => SignupScreen(),
+          IntroScreen.routename: (_) => IntroScreen(),
+          ExtraInfoScreen.routename: (_) => ExtraInfoScreen(),
+          HomeScreen.routename: (_) => HomeScreen(),
+          BMIScreen.routename: (_) => BMIScreen(),
+        },
+      ),
     );
   }
 }

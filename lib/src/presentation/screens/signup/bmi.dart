@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../../utils/global_themes.dart';
+import '../home_screen.dart';
 
 class BMIScreen extends StatefulWidget {
   static const routename = "/bmi";
@@ -11,25 +11,6 @@ class BMIScreen extends StatefulWidget {
 }
 
 class _BMIScreenState extends State<BMIScreen> {
-  TextEditingController _heightController;
-  TextEditingController _weightController;
-  DateTime _birthDate;
-  var format = DateFormat.yMd();
-
-  @override
-  void initState() {
-    _heightController = TextEditingController();
-    _weightController = TextEditingController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _heightController.dispose();
-    _weightController.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +30,9 @@ class _BMIScreenState extends State<BMIScreen> {
         padding: EdgeInsets.only(left: 20, right: 20, bottom: 40),
         child: RaisedButton(
           elevation: 0,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushReplacementNamed(HomeScreen.routename);
+          },
           child: Container(
             margin: EdgeInsets.all(16),
             child: Text(
@@ -96,8 +79,29 @@ class _BMIScreenState extends State<BMIScreen> {
               ),
               Center(
                 child: CircleAvatar(
-                  radius: MediaQuery.of(context).size.height * 0.2,
-                  child: Container(),
+                  backgroundColor: Colors.white,
+                  radius: MediaQuery.of(context).size.height * 0.1,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '27',
+                        style: TextStyle(
+                          color: Color(0xFFFF7373),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 64,
+                        ),
+                      ),
+                      Text(
+                        'OVERWEIGHT',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFF7373),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

@@ -16,12 +16,14 @@ dependencies:
   cupertino_icons: ^0.1.3
   equatable:
   flutter_bloc:
+  flutter_custom_tabs:
   flutter_svg: ^0.18.0
   google_sign_in:
   hive: ^1.4.2
   hive_flutter: ^0.3.1
   http:
   intl:
+  progressive_image:
   path_provider:
   shared_preferences:
 
