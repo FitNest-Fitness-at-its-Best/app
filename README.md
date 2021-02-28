@@ -6,3 +6,8 @@
 * Add Foodlog
 * Analytics
 * Calculating a health score for each user
+
+## Difficulties faced
+* Integrating health data from Google Fit
+* Showing Analytics
+* Compressing pictures
